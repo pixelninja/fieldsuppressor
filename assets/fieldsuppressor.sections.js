@@ -36,8 +36,10 @@
 			
 			template = field_template.clone();
 			
-			if(data[field_id]['suppress'] == 'yes') {
-				template.find('input').attr('checked', 'checked');
+			if(data != undefined) {
+				if(data[field_id]['suppress'] == 'yes') {
+					template.find('input').attr('checked', 'checked');
+				}
 			}
 
 			template.find('input').attr({name: 'fields[' + i + '][fieldsuppressor]'})
