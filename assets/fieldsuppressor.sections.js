@@ -33,6 +33,7 @@
 		$fields.each(function(i) {
 			var $field = jQuery(this);
 			var field_id = $field.find(':hidden[name*=id]').val();
+			var required = $field.find('input[name*=required]');
 			
 			template = field_template.clone();
 			
@@ -43,7 +44,9 @@
 			}
 
 			template.find('input').attr({name: 'fields[' + i + '][fieldsuppressor]'})
-
+			
+			console.log(required.attr('checked'));
+			
 			addField($field, template);
 		});
 

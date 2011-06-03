@@ -62,6 +62,15 @@
 		private function addContextToPage(Array $data = array()) {
 			if(!empty($data)) {
 				// Get current value and inject into Symphony Context
+				$user_type = Administration::instance()->Author->get('user_type');
+				
+				Administration::instance()->Page->addElementToHead(
+					new XMLElement(
+						'script',
+						"Symphony.Context.add('user_type', " . json_encode($user_type) . ");",
+						array('type' => 'text/javascript')
+					), 10000
+				);
 				Administration::instance()->Page->addElementToHead(
 					new XMLElement(
 						'script',
@@ -111,6 +120,7 @@
 					$this->addContextToPage($data);
 
 					Administration::instance()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.js', 10001, false);
+					Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.css', 'screen');
 				}
 			}
 		}
