@@ -1,27 +1,17 @@
 /*--------------------------------
 	Hides fields on edit pages
 --------------------------------*/
-jQuery(document).ready(function() {
-	var field = jQuery('#contents').find('div.field');
+$ = jQuery;
+$(document).ready(function() {
+	var field = $('#contents').find('div.field');
 	var data = Symphony.Context.get('fieldsuppressor');
 	var user = Symphony.Context.get('user_type');
 	
+	console.log(field.length);
+	
 	if(data != undefined) {
-		if(user == 'developer') {
-			jQuery('#contents h2')
-				.append(
-					jQuery('<a />')
-						.attr('class', 'toggle-fields')
-						.text('Toggle hidden fields')
-				);
-				
-			jQuery('a.toggle-fields').live('click', function() {
-				field.filter(".suppressed").toggleClass('hide-field');
-			});
-		}
-		
 		field.each(function() {
-			self = jQuery(this);
+			self = $(this);
 			var id = self.attr('id').substr(6);
 			
 			if(data[id]['field_id'] == undefined) return;
@@ -30,5 +20,20 @@ jQuery(document).ready(function() {
 				self.addClass('hide-field suppressed');
 			}
 		});
+		
+		var hidden = $('#contents').find("div.suppressed");
+		
+		if(hidden.length != 0 && user == 'developer') {
+			$('#contents h2')
+				.append(
+					$('<a />')
+						.attr('class', 'toggle-fields')
+						.text('Toggle hidden fields')
+				);
+				
+			$('a.toggle-fields').live('click', function() {
+				field.filter(".suppressed").toggleClass('hide-field');
+			});
+		}
 	}
 });
