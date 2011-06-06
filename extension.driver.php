@@ -19,8 +19,8 @@
 			return array(
 				array(
 					'page' => '/backend/',
-					'delegate' => 'AdminPagePreGenerate',
-					'callback' => '__appendAssets'
+					'delegate' => 'InitaliseAdminPageHead',
+					'callback' => 'initaliseAdminPageHead'
 				),
 				array(
 					'page' => '/blueprints/sections/',
@@ -65,18 +65,10 @@
 				$user_type = Administration::instance()->Author->get('user_type');
 				
 				Administration::instance()->Page->addElementToHead(
-					new XMLElement(
-						'script',
-						"Symphony.Context.add('user_type', " . json_encode($user_type) . ");",
-						array('type' => 'text/javascript')
-					), 10000
+					new XMLElement('script', "Symphony.Context.add('fieldsuppressor', " . json_encode($data) . ");", array('type' => 'text/javascript')), 10000
 				);
 				Administration::instance()->Page->addElementToHead(
-					new XMLElement(
-						'script',
-						"Symphony.Context.add('fieldsuppressor', " . json_encode($data) . ");",
-						array('type' => 'text/javascript')
-					), 10000
+					new XMLElement('script', "Symphony.Context.add('user_type', " . json_encode($user_type) . ");", array('type' => 'text/javascript')), 10000
 				);
 			}
 		}
@@ -99,29 +91,20 @@
 	/*-------------------------------------------------------------------------
 		Delegate Callbacks
 	-------------------------------------------------------------------------*/
-		public function __appendAssets(&$context) {
-			if(class_exists('Administration')
-				&& Administration::instance() instanceof Administration
-				&& Administration::instance()->Page instanceof HTMLPage
-			) {
-				$callback = Administration::instance()->getPageCallback();
-
-				// Section Editor
-				if($context['oPage'] instanceof contentBlueprintsSections) {
-					$data = $this->getSuppressedFieldsForSection($callback['context'][1]);
-					$this->addContextToPage($data);
-					
-					Administration::instance()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.sections.js', 10001, false);
-				}
-
-				// Publish Page
-				else if($context['oPage'] instanceof contentPublish) {
-					$data = $this->getSuppressedFieldsForSection($callback['context']['section_handle']);
-					$this->addContextToPage($data);
-
-					Administration::instance()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.js', 10001, false);
-					Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.css', 'screen');
-				}
+		public function initaliseAdminPageHead($context) {
+			$callback = Symphony::Engine()->getPageCallback();
+			
+			// Append assets
+			if($callback['driver'] == 'blueprintssections' && $callback['context'][0] == 'edit') {
+				$data = $this->getSuppressedFieldsForSection($callback['context'][1]);
+				$this->addContextToPage($data);
+				Symphony::Engine()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.sections.js', 10001, false);
+			}
+			if($callback['driver'] == 'publish' && $callback['context']['page'] == 'edit') {
+				$data = $this->getSuppressedFieldsForSection($callback['context']['section_handle']);
+				$this->addContextToPage($data);
+				Symphony::Engine()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.js', 10001, false);
+				Symphony::Engine()->Page->addStylesheetToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.css', 'screen');
 			}
 		}
 

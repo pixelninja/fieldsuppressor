@@ -5,7 +5,7 @@ jQuery(document).ready(function() {
 	var field = jQuery('#contents').find('div.field');
 	var data = Symphony.Context.get('fieldsuppressor');
 	var user = Symphony.Context.get('user_type');
-		
+	
 	if(data != undefined) {
 		if(user == 'developer') {
 			jQuery('#contents h2')

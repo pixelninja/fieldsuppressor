@@ -9,7 +9,6 @@
 	Section Editor
 -----------------------------------------------------------------------------*/
 	jQuery(document).ready(function() {
-		// Add a input field for every field instance
 		var $duplicator = jQuery('#fields-duplicator');
 		$fields = $duplicator.find('.instance');
 
@@ -33,9 +32,8 @@
 		$fields.each(function(i) {
 			var $field = jQuery(this);
 			var field_id = $field.find(':hidden[name*=id]').val();
-			var required = $field.find('input[name*=required]');
-			
-			template = field_template.clone();
+			//var required = $field.find('input[name*=required]:not(:hidden)');
+			var template = field_template.clone();
 			
 			if(data != undefined) {
 				if(data[field_id]['suppress'] == 'yes') {
@@ -45,9 +43,22 @@
 
 			template.find('input').attr({name: 'fields[' + i + '][fieldsuppressor]'})
 			
-			console.log(required.attr('checked'));
-			
-			addField($field, template);
+			//if(required.attr('checked') != true) {
+				addField($field, template);
+			//}
+
+			// Check when the required status changes
+			/*required.bind('click', function() {
+				if(required.attr('checked') != true) {
+					var template = field_template.clone();
+	
+					template.find('input').attr({name: 'fields[' + ($field.index() - 1) + '][fieldsuppressor]', value: 'yes'})
+	
+					addField($field, template);
+				} else {
+					$field.find('input[name*=fieldsuppressor]').parent().remove();
+				}
+			});*/
 		});
 
 		// Listen for when the duplicator changes
