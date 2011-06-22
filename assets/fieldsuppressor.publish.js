@@ -2,7 +2,7 @@
 	Hides fields on edit pages
 --------------------------------*/
 jQuery(function($){
-	var field = $('#contents').find('div.field:not(.field-publish_tabs');
+	var field = $('#contents').find('div.field:not(.field-publish_tabs)');
 	var data = Symphony.Context.get('fieldsuppressor');
 	var user = Symphony.Context.get('user_type');
 	
