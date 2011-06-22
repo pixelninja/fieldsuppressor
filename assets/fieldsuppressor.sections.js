@@ -8,19 +8,18 @@
 /*-----------------------------------------------------------------------------
 	Section Editor
 -----------------------------------------------------------------------------*/
-	jQuery(document).ready(function() {
-		// Add a input field for every field instance
-		var $duplicator = jQuery('#fields-duplicator');
+	jQuery(function($){
+		var $duplicator = $('#fields-duplicator');
 		$fields = $duplicator.find('.instance:not(.field-publish_tabs)');
 
 		// Get JSON data for the fields
 		data = Symphony.Context.get('fieldsuppressor');
 
 		// Template to clone for each field instance
-		field_template = jQuery('<label />')
+		field_template = $('<label />')
 			.text(Symphony.Language.get(' Hide this field from the backend edit page'))
 			.prepend(
-				jQuery('<input />')
+				$('<input />')
 				.attr({ type: 'checkbox', value: 'yes'})
 			);
 
@@ -31,11 +30,9 @@
 		
 		// Initially run over the all the existing fields
 		$fields.each(function(i) {
-			var $field = jQuery(this);
+			var $field = $(this);
 			var field_id = $field.find(':hidden[name*=id]').val();
-			var required = $field.find('input[name*=required]');
-			
-			template = field_template.clone();
+			var template = field_template.clone();
 			
 			if(data != undefined) {
 				if(data[field_id]['suppress'] == 'yes') {
@@ -44,8 +41,6 @@
 			}
 
 			template.find('input').attr({name: 'fields[' + i + '][fieldsuppressor]'})
-			
-			console.log(required.attr('checked'));
 			
 			addField($field, template);
 		});
