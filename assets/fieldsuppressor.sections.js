@@ -11,7 +11,7 @@
 	jQuery(document).ready(function() {
 		// Add a input field for every field instance
 		var $duplicator = jQuery('#fields-duplicator');
-		$fields = $duplicator.find('.instance');
+		$fields = $duplicator.find('.instance:not(.field-publish_tabs)');
 
 		// Get JSON data for the fields
 		data = Symphony.Context.get('fieldsuppressor');
@@ -52,7 +52,7 @@
 
 		// Listen for when the duplicator changes
 		$duplicator.bind('click.duplicator', function() {
-			var $field = $duplicator.find('.instance:last');
+			var $field = $duplicator.find('.instance:not(.field-publish_tabs):last');
 
 			// If the field doesn't have a suppress field already, add one
 			if($field.filter(':has(input[name*=fieldsuppressor])').length == 0) {
