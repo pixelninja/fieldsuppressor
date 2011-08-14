@@ -5,7 +5,7 @@
 		public function about() {
 			return array(
 				'name' => 'Field Suppressor',
-				'version' => '0.3beta',
+				'version' => '1.0',
 				'release-date' => '2011-06-02',
 				'author' => array(
 			 		'name' => 'Phill Gray',
