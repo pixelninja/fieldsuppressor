@@ -6,6 +6,10 @@ jQuery(function($){
 	var data = Symphony.Context.get('fieldsuppressor');
 	var user = Symphony.Context.get('user_type');
 	
+	console.log(field);
+	console.log(data);
+	console.log(user);
+	
 	if(data != undefined) {
 		field.each(function() {
 			self = $(this);

@@ -25,17 +25,17 @@
 				array(
 					'page' => '/blueprints/sections/',
 					'delegate' => 'FieldPostCreate',
-					'callback' => '__saveSuppressToField'
+					'callback' => 'saveSuppressToField'
 				),
 				array(
 					'page' => '/blueprints/sections/',
 					'delegate' => 'FieldPostEdit',
-					'callback' => '__saveSuppressToField'
+					'callback' => 'saveSuppressToField'
 				),
 				array(
 					'page' => '/blueprints/sections/',
 					'delegate' => 'SectionPostEdit',
-					'callback' => '__cleanUp'
+					'callback' => 'cleanUp'
 				)
 			);
 		}
@@ -100,7 +100,7 @@
 				$this->addContextToPage($data);
 				Symphony::Engine()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.sections.js', 10001, false);
 			}
-			if($callback['driver'] == 'publish' && $callback['context']['page'] == 'edit') {
+			if($callback['driver'] == 'publish' && ($callback['context']['page'] == 'edit' || $callback['context']['page'] == 'new')) {
 				$data = $this->getSuppressedFieldsForSection($callback['context']['section_handle']);
 				$this->addContextToPage($data);
 				Symphony::Engine()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.js', 10001, false);
@@ -108,7 +108,7 @@
 			}
 		}
 
-		public function __saveSuppressToField(&$context) {
+		public function saveSuppressToField(&$context) {
 			$field = $context['field'];
 			
 			$data = array(
@@ -121,7 +121,7 @@
 			return Symphony::Database()->insert($data, 'tbl_fieldsuppressor', true);
 		}
 
-		public function __cleanUp(&$context) {
+		public function cleanUp(&$context) {
 			$section_id = $context['section_id'];
 
 			$section_field_ids = Symphony::Database()->fetchCol("id", "SELECT id FROM tbl_fields WHERE parent_section = " . $section_id);
