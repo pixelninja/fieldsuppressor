@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="fieldsuppressor" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>Field Suppressor</name>
+	<description>Allows individual fields to be hidden in each section</description>
+	<repo type="github">https://github.com/pixelninja/fieldsuppressor</repo>
+	<url type="discuss">http://symphony-cms.com/discuss/thread/70787/</url>
+	<types>
+		<type>Interface</type>
+	</types>
+	<authors>
+		<author>
+			<name github="pixelninja" symphony="touchstone">Phillip Gray</name>
+			<website>http://www.touchstone-dev.co.nz</website>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.0" date="2011-08-12" min="2.2.1" />
+	</releases>
+</extension>
