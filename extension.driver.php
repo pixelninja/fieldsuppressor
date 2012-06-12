@@ -92,19 +92,19 @@
 		Delegate Callbacks
 	-------------------------------------------------------------------------*/
 		public function initaliseAdminPageHead($context) {
-			$callback = Symphony::Engine()->getPageCallback();
+			$callback = Administration::instance()->getPageCallback();
 			
 			// Append assets
 			if($callback['driver'] == 'blueprintssections' && $callback['context'][0] == 'edit') {
 				$data = $this->getSuppressedFieldsForSection($callback['context'][1]);
 				$this->addContextToPage($data);
-				Symphony::Engine()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.sections.js', 10001, false);
+				Administration::instance()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.sections.js', 10001, false);
 			}
 			if($callback['driver'] == 'publish' && ($callback['context']['page'] == 'edit' || $callback['context']['page'] == 'new')) {
 				$data = $this->getSuppressedFieldsForSection($callback['context']['section_handle']);
 				$this->addContextToPage($data);
-				Symphony::Engine()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.js', 10001, false);
-				Symphony::Engine()->Page->addStylesheetToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.css', 'screen');
+				Administration::instance()->Page->addScriptToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.js', 10001, false);
+				Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/fieldsuppressor/assets/fieldsuppressor.publish.css', 'screen');
 			}
 		}
 
