@@ -20,7 +20,7 @@ jQuery(function($){
 		
 		var hidden = $('#contents').find("div.suppressed");
 		
-		if(hidden.length != 0 && user == 'developer') {
+		if(hidden.length && user == 'developer') {
 			$('#context ul.actions')
 				.append($('<li />')
 						.attr('class', 'toggle-fields button')
