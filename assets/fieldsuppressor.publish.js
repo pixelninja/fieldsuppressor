@@ -2,14 +2,14 @@
 	Hides fields on edit pages
 --------------------------------*/
 jQuery(function($){
-	var field = $('#contents').find('div.field:not(.field-publish_tabs)');
-	var data = Symphony.Context.get('fieldsuppressor');
-	var user = Symphony.Context.get('user_type');
+	var field = $('#contents').find('div.field:not(.field-publish_tabs)'),
+		data = Symphony.Context.get('fieldsuppressor'),
+		user = Symphony.Context.get('user_type');
 	
 	if(data != undefined) {
 		field.each(function() {
-			self = $(this);
-			var id = self.attr('id').substr(6);
+			var self = $(this),
+				id = self.attr('id').substr(6);
 
 			if(data[id]['field_id'] == undefined) return;
 			
