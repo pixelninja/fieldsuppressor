@@ -5,11 +5,11 @@
 		public function about() {
 			return array(
 				'name' => 'Field Suppressor',
-				'version' => '1.0',
-				'release-date' => '2011-06-02',
+				'version' => '1.1',
+				'release-date' => '2012-06-12',
 				'author' => array(
 			 		'name' => 'Phill Gray',
-					'email' => 'phill@randb.com.au'
+					'email' => 'pixel.ninjad@gmail.com'
 				),
 				'description' => 'Hide or show fields on the edit pages.'
 			);

@@ -6,10 +6,6 @@ jQuery(function($){
 	var data = Symphony.Context.get('fieldsuppressor');
 	var user = Symphony.Context.get('user_type');
 	
-	console.log(field);
-	console.log(data);
-	console.log(user);
-	
 	if(data != undefined) {
 		field.each(function() {
 			self = $(this);
@@ -25,14 +21,12 @@ jQuery(function($){
 		var hidden = $('#contents').find("div.suppressed");
 		
 		if(hidden.length != 0 && user == 'developer') {
-			$('#contents h2')
-				.append(
-					$('<a />')
-						.attr('class', 'toggle-fields')
-						.text('Toggle hidden fields')
-				);
+			$('#context ul.actions')
+				.append($('<li />')
+						.attr('class', 'toggle-fields button')
+						.text('Toggle hidden fields'));
 				
-			$('a.toggle-fields').live('click', function() {
+			$('ul.actions').on('click', 'li.toggle-fields', function() {
 				field.filter(".suppressed").toggleClass('hide-field');
 			});
 		}

@@ -1,9 +1,9 @@
 # Field Suppressor
 
-* Version: 1.0
+* Version: 1.1
 * Author: Phill Gray
-* Build Date: 2011/08/12
-* Requirements: Symphony 2.2
+* Build Date: 2012-06-12
+* Requirements: Symphony 2.3
 
 Allows individual fields to be hidden in each section
 
