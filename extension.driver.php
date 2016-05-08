@@ -41,15 +41,17 @@
 		}
 
 		public function install(){
-			return Symphony::Database()->query('
+			Symphony::Database()->query('
 				CREATE TABLE IF NOT EXISTS tbl_fieldsuppressor (
-					`field_id` INT(4) UNSIGNED DEFAULT NULL,
-					`section_id` INT(4) UNSIGNED DEFAULT NULL,
+					`field_id` INT(11) NOT NULL,
+					`section_id` INT(11) UNSIGNED DEFAULT NULL,
 					`suppress` ENUM("yes","no") DEFAULT NULL,
 					PRIMARY KEY (`field_id`),
 					UNIQUE KEY field_id_section_id (`field_id`, `section_id`)
 				) ENGINE=MyISAM
 			');
+
+            return true;
 		}
 
 		public function uninstall() {
@@ -62,7 +64,7 @@
 		private function addContextToPage(Array $data = array()) {
 			if(!empty($data)) {
 				// Get current value and inject into Symphony Context
-				$user_type = Administration::instance()->Author->get('user_type');
+				$user_type = Symphony::Author()->get('user_type');
 				
 				Administration::instance()->Page->addElementToHead(
 					new XMLElement('script', "Symphony.Context.add('fieldsuppressor', " . json_encode($data) . ");", array('type' => 'text/javascript')), 10000

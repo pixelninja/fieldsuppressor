@@ -10,10 +10,12 @@
 	<authors>
 		<author>
 			<name github="pixelninja" symphony="touchstone">Phillip Gray</name>
-			<website>http://www.touchstone-dev.co.nz</website>
+			<website>https://thebold.nz</website>
+            <email>phill@thebold.nz</email>
 		</author>
 	</authors>
 	<releases>
+		<release version="1.2" date="2016-05-09" min="2.6" />
 		<release version="1.1" date="2012-06-12" min="2.3" />
 	</releases>
 </extension>

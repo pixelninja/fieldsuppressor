@@ -40,9 +40,15 @@
 				}
 			}
 
-			template.find('input').attr({name: 'fields[' + i + '][fieldsuppressor]'})
+            template
+                .css('margin-bottom', 0)
+                .find('input').attr({
+                    name: 'fields[' + i + '][fieldsuppressor]'
+                });
 			
 			addField($field, template);
+
+            $field.data('heightMax', $field.data('heightMax') + template.outerHeight());
 		});
 
 		// Listen for when the duplicator changes
